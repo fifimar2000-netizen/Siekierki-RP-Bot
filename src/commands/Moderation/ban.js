@@ -8,15 +8,15 @@ import { handleInteractionError, TitanBotError, ErrorTypes } from '../../utils/e
 export default {
     data: new SlashCommandBuilder()
         .setName("ban")
-        .setDescription("Ban a user from the server")
+        .setDescription("Zbanuj z serwera")
         .addUserOption((option) =>
             option
                 .setName("target")
-                .setDescription("The user to ban")
+                .setDescription("użytkownik")
                 .setRequired(true),
         )
         .addStringOption((option) =>
-            option.setName("reason").setDescription("Reason for the ban"),
+            option.setName("reason").setDescription("Przyczyna bana"),
         )
 .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
     category: "moderation",
@@ -24,7 +24,7 @@ export default {
     async execute(interaction, config, client) {
         try {
             const user = interaction.options.getUser("target");
-            const reason = interaction.options.getString("reason") || "No reason provided";
+            const reason = interaction.options.getString("reason") || "Nie podano przyczyny";
 
             if (!user) {
                 throw new TitanBotError(
@@ -36,10 +36,10 @@ export default {
             }
 
             if (user.id === interaction.user.id) {
-                throw new Error("You cannot ban yourself.");
+                throw new Error("Nie możesz zbanować siebie.");
             }
             if (user.id === client.user.id) {
-                throw new Error("You cannot ban the bot.");
+                throw new Error("Nie możesz zbanować bota.");
             }
 
             const result = await ModerationService.banUser({
@@ -52,8 +52,8 @@ export default {
             await InteractionHelper.universalReply(interaction, {
                 embeds: [
                     successEmbed(
-                        `🚫 **Banned** ${user.tag}`,
-                        `**Reason:** ${reason}\n**Case ID:** #${result.caseId}`,
+                        `🚫 **Zbanowany** ${user.tag}`,
+                        `**Przyczyna:** ${reason}\n**Case ID:** #${result.caseId}`,
                     ),
                 ],
             });
