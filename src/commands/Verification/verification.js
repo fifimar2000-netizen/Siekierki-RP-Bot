@@ -85,13 +85,13 @@ export default {
                     return await verificationDashboard.execute(interaction, config, client);
                 default:
                     throw createError(
-                        `Unknown subcommand: ${subcommand}`,
+                        `Nieznane podpolecenie: ${subcommand}`,
                         ErrorTypes.VALIDATION,
-                        "Please select a valid subcommand.",
+                        "Proszę wybrać prawidłowe podpolecenie.",
                         { subcommand }
                     );
             }
-        }, { command: 'verification', subcommand: interaction.options.getSubcommand() });
+        }, { command: 'weryfikacja', subcommand: interaction.options.getSubcommand() });
 
         return await wrappedExecute(interaction, config, client);
     }
@@ -108,7 +108,7 @@ async function handleSetup(interaction, guild, client) {
         throw createError(
             'Bot member not found in guild cache',
             ErrorTypes.CONFIGURATION,
-            'I could not verify my permissions in this server. Please try again in a moment.',
+            'Nie mogłem zweryfikować swoich uprawnień na tym serwerze. Proszę spróbować jeszcze raz za chwilę.',
             { guildId: guild.id }
         );
     }
@@ -135,16 +135,16 @@ async function handleSetup(interaction, guild, client) {
         throw createError(
             "Missing ManageRoles permission",
             ErrorTypes.PERMISSION,
-            "I need the 'Manage Roles' permission to give verified roles.",
+            "Potrzebuję uprawnienia „Zarządzaj rolami”, aby nadać zweryfikowane role.",
             { missingPermission: "ManageRoles" }
         );
     }
 
     if (verifiedRole.id === guild.id || verifiedRole.managed) {
         throw createError(
-            'Invalid verified role selected',
+            'Wybrano nieprawidłową zweryfikowaną rolę',
             ErrorTypes.VALIDATION,
-            'Please choose a normal assignable role (not @everyone or an integration-managed role).',
+            'Prosze wybrac inna role (nie @everyone).',
             { roleId: verifiedRole.id, managed: verifiedRole.managed }
         );
     }
@@ -154,7 +154,7 @@ async function handleSetup(interaction, guild, client) {
         throw createError(
             "Role hierarchy error",
             ErrorTypes.PERMISSION,
-            "The verified role must be below my highest role in the server role hierarchy.",
+            "Zweryfikowana rola musi być niższa od mojej najwyższej roli w hierarchii .",
             { rolePosition: verifiedRole.position, botRolePosition: botRole.position }
         );
     }
@@ -166,9 +166,9 @@ async function handleSetup(interaction, guild, client) {
 
     if (hasAutoVerifyEnabled || hasAutoRoleConfigured) {
         throw createError(
-            'Verification setup blocked by conflicting onboarding system',
+            'Konfiguracja weryfikacji zablokowana przez konfliktowy system wdrażania',
             ErrorTypes.CONFIGURATION,
-            'You cannot enable the verification system while **AutoVerify** or **AutoRole** is configured. Disable those first.',
+            'Nie można włączyć systemu weryfikacji, gdy **AutoVerify** lub **AutoRole** jest skonfigurowany. Wyłącz je jako pierwsze.',
             {
                 guildId: guild.id,
                 hasAutoVerifyEnabled,
@@ -182,7 +182,7 @@ async function handleSetup(interaction, guild, client) {
     await InteractionHelper.safeDefer(interaction);
 
     const verifyEmbed = createEmbed({
-        title: "Server Verification",
+        title: "Weryfikacja",
         description: message,
         color: getColor('success')
     });
@@ -213,7 +213,7 @@ async function handleSetup(interaction, guild, client) {
 
     await InteractionHelper.safeEditReply(interaction, {
         embeds: [successEmbed(
-            'Verification System Updated',
+            'system weryfikacji zaaktualizowano',
             [
                 `Channel: ${verificationChannel}`,
                 `Verified Role: ${verifiedRole}`,
@@ -235,7 +235,7 @@ async function handleRemove(interaction, guild, client) {
         if (!result.success) {
             if (result.notVerified) {
                 return await InteractionHelper.safeReply(interaction, {
-                    embeds: [infoEmbed('Not Verified', `${targetUser.tag} does not currently have the verified role.`)],
+                    embeds: [infoEmbed('Nie zweryfikowany', `${targetUser.tag} nie posiada obecnie zweryfikowanej roli.`)],
                     flags: MessageFlags.Ephemeral
                 });
             }
@@ -248,14 +248,14 @@ async function handleRemove(interaction, guild, client) {
         });
 
         return await InteractionHelper.safeReply(interaction, {
-            embeds: [successEmbed('Verification Removed', `Verification removed from ${targetUser.tag}.`)]
+            embeds: [successEmbed('weryfikacja usunieta', `usunieto weryfikacje z ${targetUser.tag}.`)]
         });
 
     } catch (error) {
         await handleInteractionError(
             interaction,
             error,
-            { command: 'verification', subcommand: 'remove' }
+            { command: 'weryfikacja', subcommand: 'usuń' }
         );
     }
 }
