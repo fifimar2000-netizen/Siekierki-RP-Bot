@@ -11,55 +11,55 @@ import verificationDashboard from './modules/verification_dashboard.js';
 
 export default {
     data: new SlashCommandBuilder()
-        .setName("verification")
-        .setDescription("Manage the server verification system")
+        .setName("weryfikacja")
+        .setDescription("Zarządzaj systemem weryfikacji serwera")
         .addSubcommand(subcommand =>
             subcommand
-                .setName("setup")
-                .setDescription("Set up the verification system")
+                .setName("konfiguracja")
+                .setDescription("Ustaw weryfikacje serwera")
                 .addChannelOption(option =>
                     option
                         .setName("verification_channel")
-                        .setDescription("Channel where verification messages will be sent")
+                        .setDescription("Kanał gdzie będzie system weryfikacji")
                         .addChannelTypes(ChannelType.GuildText)
                         .setRequired(true)
                 )
                 .addRoleOption(option =>
                     option
                         .setName("verified_role")
-                        .setDescription("Role to give to verified users")
+                        .setDescription("Rola, jaką należy przyznać zweryfikowanym użytkownikom")
                         .setRequired(true)
                 )
                 .addStringOption(option =>
                     option
                         .setName("message")
-                        .setDescription("Custom verification message")
+                        .setDescription("Customowa wiadomość weryfikacji")
                         .setMaxLength(2000)
                         .setRequired(false)
                 )
                 .addStringOption(option =>
                     option
                         .setName("button_text")
-                        .setDescription("Text for the verification button")
+                        .setDescription("Tekst przycisku weryfikacji")
                         .setMaxLength(80)
                         .setRequired(false)
                 )
         )
         .addSubcommand(subcommand =>
             subcommand
-                .setName("remove")
-                .setDescription("Remove verification from a user")
+                .setName("usuń")
+                .setDescription("Usuń weryfikację z użytkownika")
                 .addUserOption(option =>
                     option
                         .setName("user")
-                        .setDescription("User to remove verification from")
+                        .setDescription("Użytkownik, z którego ma usunąć weryfikację")
                         .setRequired(true)
                 )
         )
         .addSubcommand(subcommand =>
             subcommand
                 .setName("dashboard")
-                .setDescription("Open the verification system configuration dashboard")
+                .setDescription("Otwórz dashboard konfiguracji systemu weryfikacji")
         ),
 
     async execute(interaction, config, client) {
@@ -71,7 +71,7 @@ export default {
                 throw createError(
                     'Missing ManageGuild permission for verification admin subcommand',
                     ErrorTypes.PERMISSION,
-                    'You need the **Manage Server** permission to use this verification subcommand.',
+                    'Aby korzystać z tego podpolecenia weryfikacyjnego, potrzebujesz uprawnienia **Zarządzaj serwerem**.',
                     { subcommand, requiredPermission: 'ManageGuild', userId: interaction.user.id }
                 );
             }
