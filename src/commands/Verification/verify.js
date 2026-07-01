@@ -7,8 +7,8 @@ import { InteractionHelper } from '../../utils/interactionHelper.js';
 
 export default {
     data: new SlashCommandBuilder()
-        .setName('verify')
-        .setDescription('Verify yourself and gain access to the server'),
+        .setName('weryfikacja')
+        .setDescription('Zweryfikuj siebie i uzyskaj dostęp do serwera'),
 
     async execute(interaction, config, client) {
         const wrappedExecute = withErrorHandling(async () => {
@@ -22,22 +22,22 @@ export default {
             if (!result.success) {
                 if (result.alreadyVerified) {
                     return await InteractionHelper.safeReply(interaction, {
-                        embeds: [infoEmbed('Already Verified', "You are already verified.")],
+                        embeds: [infoEmbed('Jesteś już zweryfikowany', "Jesteś już zweryfikowany.")],
                         flags: MessageFlags.Ephemeral
                     });
                 }
 
-                return await replyUserError(interaction, { type: ErrorTypes.UNKNOWN, message: 'An error occurred during verification. Please try again or contact an administrator.' });
+                return await replyUserError(interaction, { type: ErrorTypes.UNKNOWN, message: 'Podczas weryfikacji wystąpił błąd. Spróbuj ponownie lub skontaktuj się z administratorem.' });
             }
 
             await InteractionHelper.safeReply(interaction, {
                 embeds: [successEmbed(
-                    "Verification Complete",
-                    `You have been verified and given the **${result.roleName}** role! Welcome to the server! 🎉`
+                    "Weryfikacja zakończona",
+                    `Zostałeś zweryfikowany i otrzymałeś **${result.roleName}** role! Witamy na serwerze! 🎉`
                 )],
                 flags: MessageFlags.Ephemeral
             });
-        }, { command: 'verify' });
+        }, { command: 'zweryfikuj' });
 
         return await wrappedExecute(interaction, config, client);
     }
