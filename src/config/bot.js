@@ -24,7 +24,7 @@ export const botConfig = {
     activities: [
       {
         // Text users will see (example: "Playing /help | Titan Bot").
-        name: "Made with ❤️",
+        name: "Siekierki RP❤️",
         // Activity type number (0 = Playing).
         type: 0,
       },
@@ -59,9 +59,9 @@ export const botConfig = {
   applications: {
     // Default questions shown when someone fills out an application.
     defaultQuestions: [
-      { question: "What is your name?", required: true },
-      { question: "How old are you?", required: true },
-      { question: "Why do you want to join?", required: true },
+      { question: "Jak masz na imie?", required: true },
+      { question: "Ile masz lat?", required: true },
+      { question: "Dlaczego chcesz dołączyć", required: true },
     ],
 
     // Embed colors by application status.
@@ -292,7 +292,7 @@ export const botConfig = {
   // =========================
   verification: {
     // Message shown when posting the verification panel.
-    defaultMessage: "Click the button below to verify yourself and gain access to the server!",
+    defaultMessage: "Kliknij aby uzyskac dostep do serwera",
 
     // Text on the verification button.
     defaultButtonText: "Verify",
@@ -412,7 +412,7 @@ export const botConfig = {
           guild.members.cache.filter((m) => m.user.bot).size.toString(),
       },
       members_only: {
-        name: "👤 Humans",
+        name: "👤 Obywatele",
         description: "Total human members (non-bots)",
         getCount: (guild) =>
           guild.members.cache.filter((m) => !m.user.bot).size.toString(),
@@ -424,13 +424,13 @@ export const botConfig = {
   // GENERIC BOT MESSAGES
   // =========================
   messages: {
-    noPermission: "You do not have permission to use this command.",
-    cooldownActive: "Please wait {time} before using this command again.",
-    errorOccurred: "An error occurred while executing this command.",
+    noPermission: "Nie masz permisji do uzywania tej komendy",
+    cooldownActive: "Prosze zaczekaj {time} zanim uzyjesz tej komendy.",
+    errorOccurred: "Wystąpił błąd podczas wykonywania tego polecenia.",
     missingPermissions:
-      "I am missing required permissions to perform this action.",
-    commandDisabled: "This command has been disabled.",
-    maintenanceMode: "The bot is currently in maintenance mode.",
+      "Brakuje mi wymaganych uprawnień do wykonania tej czynności.",
+    commandDisabled: "Ta komenda zostala wylaczona",
+    maintenanceMode: "Bot jest obecnie w trybie konserwacji.",
   },
 
   // =========================
