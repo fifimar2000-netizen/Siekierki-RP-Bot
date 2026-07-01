@@ -64,18 +64,18 @@ function buildDashboardEmbed(cfg, guild, verifiedUserCount = 0, conflictSummary 
     const panelStatusValue = cfg.channelId ? formatPanelStatusField(panelStatus) : '`Not configured`';
 
     const embed = new EmbedBuilder()
-        .setTitle('✅ Verification System Dashboard')
-        .setDescription(`Manage verification settings for **${guild.name}**.\nSelect an option below to modify a setting.`)
+        .setTitle('✅ System weryfikacji Dashboard')
+        .setDescription(`Zarządzaj ustawieniami weryfikacji dla **${guild.name}**.\nWybierz opcję poniżej, aby zmodyfikować ustawienie.`)
         .setColor(getColor('info'))
         .addFields(
-            { name: 'Panel Status', value: panelStatusValue, inline: false },
-            { name: 'Verification Channel', value: channel, inline: true },
-            { name: 'Verified Role', value: role, inline: true },
-            { name: 'System Status', value: cfg.enabled !== false ? 'Enabled' : 'Disabled', inline: true },
-            { name: 'Button Text', value: `\`${buttonText}\``, inline: true },
-            { name: 'Verified Users', value: `${verifiedUserCount} users`, inline: true },
+            { name: 'Status panelu', value: panelStatusValue, inline: false },
+            { name: 'Kanał weryfikacji', value: channel, inline: true },
+            { name: 'Rola weryfikacji', value: role, inline: true },
+            { name: 'Status systemu', value: cfg.enabled !== false ? 'Enabled' : 'Disabled', inline: true },
+            { name: 'Emoji', value: `\`${buttonText}\``, inline: true },
+            { name: 'Zweryfikowani użytkownicy', value: `${verifiedUserCount} users`, inline: true },
             { name: '\u200B', value: '\u200B', inline: true },
-            { name: 'Verification Message', value: msgPreview, inline: false },
+            { name: 'Wiadomość weryfikacji', value: msgPreview, inline: false },
         );
 
     if (conflictSummary) {
